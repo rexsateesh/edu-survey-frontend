@@ -85,6 +85,7 @@ class Survey extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleUserForm = this.handleUserForm.bind(this);
+    this.apiUrl = 'https://edufund-survey.herokuapp.com';
   }
 
   handleNext() {
@@ -129,7 +130,7 @@ class Survey extends React.Component {
 
     try {
       // Request to load data from server URL
-      const resp = await axios.post('http://localhost:3000', {user, answers: answers});
+      const resp = await axios.post(this.apiUrl, {user, answers: answers});
 
       // If HTTP Status code is not 200 or data is empty then throw error
       if (resp.status !== 200 || resp.data.length === 0) {
@@ -145,7 +146,7 @@ class Survey extends React.Component {
   async loadSurveyData() {
     try {
       // Request to load data from server URL
-      const resp = await axios.get('http://localhost:3000');
+      const resp = await axios.get(this.apiUrl);
 
       // If HTTP Status code is not 200 or data is empty then throw error
       if (resp.status !== 200 || resp.data.length === 0) {
@@ -193,7 +194,7 @@ class Survey extends React.Component {
           <CircularProgress />
         </main>}
         
-        {!user.hasOwnProperty('firstName') && <main className={classes.layout}>
+        {!user.hasOwnProperty('firstName') && survey && <main className={classes.layout}>
           <>
             <br/>
             <Typography component="h1" variant="h4" align="center">

@@ -20,13 +20,14 @@ export default class SurveyBody extends React.Component {
     }
 
     this.loadAnswers = this.loadAnswers.bind(this);
+    this.apiUrl = 'https://edufund-survey.herokuapp.com';
   }
 
   async loadAnswers() {
     const { id } = this.props.question;
     try {
       // Request to load data from server URL
-      const resp = await axios.get(`http://localhost:3000/questions/${id}`);
+      const resp = await axios.get(`${this.apiUrl}/questions/${id}`);
 
       // If HTTP Status code is not 200 or data is empty then throw error
       if (resp.status !== 200 || resp.data.length === 0) {
